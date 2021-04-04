@@ -18,19 +18,30 @@ public class TestProviderController {
      * 直连
      */
     @GetMapping("/sendHelloWorld")
-    public void sendHelloWorld(){
+    public void sendHelloWorld() {
         //队列名称 ,消息对象
-        rabbitTemplate.convertAndSend("hello","hello world");
+        rabbitTemplate.convertAndSend("hello", "hello world");
     }
 
     /**
      * work模式
      */
     @GetMapping("/sendWork")
-    public void sendWork(){
+    public void sendWork() {
         for (int i = 1; i <= 10; i++) {
             //队列名称
-            rabbitTemplate.convertAndSend("work","work queue");
+            rabbitTemplate.convertAndSend("work", "work queue----" + i);
+        }
+    }
+
+    /**
+     * work模式
+     */
+    @GetMapping("/sendWorkAsk")
+    public void sendWorkAsk() {
+        for (int i = 1; i <= 30; i++) {
+            //队列名称
+            rabbitTemplate.convertAndSend("work", "work queue----" + i);
         }
     }
 
@@ -38,26 +49,26 @@ public class TestProviderController {
      * fanout 广播
      */
     @GetMapping("/sendFanout")
-    public void sendFanout(){
+    public void sendFanout() {
         //队列名称 ,消息对象
-        rabbitTemplate.convertAndSend("fanout_test","","fanout queue");
+        rabbitTemplate.convertAndSend("fanout_test", "", "fanout queue");
     }
 
     /**
      * direct 路由模式
      */
     @GetMapping("/sendDirect")
-    public void sendDirect(){
+    public void sendDirect() {
         //队列名称 ,消息对象
-        rabbitTemplate.convertAndSend("direct_test","error","direct queue");
+        rabbitTemplate.convertAndSend("direct_test", "error", "direct queue");
     }
 
     /**
      * topic 动态路由(订阅模式)
      */
     @GetMapping("/sendTopic")
-    public void sendTopic(){
+    public void sendTopic() {
         //队列名称 ,消息对象
-        rabbitTemplate.convertAndSend("topic_test","user.save","topic queue");
+        rabbitTemplate.convertAndSend("topic_test", "user.save", "topic queue");
     }
 }
