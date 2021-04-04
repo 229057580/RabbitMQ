@@ -24,41 +24,13 @@ public class WorkConsumer {
     }
 
     @RabbitListener(queuesToDeclare = @Queue(value = "work_ask"))
-    public void receive3(String msg, Message message, Channel channel) throws Exception {
-        try {
-            Thread.sleep(3000);
-            //确认一条消息
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-            log.error("DirectReceiver消费者3收到消息  : " + msg);
-        } catch (Exception e) {
-            //消费者告诉队列信息消费失败
-            /**
-             * 拒绝确认消息:
-             * channel.basicNack(long deliveryTag, boolean multiple, boolean requeue) ;
-             * deliveryTag:该消息的index
-             * multiple：是否批量true:将一次性拒绝所有小于deliveryTag的消息
-             * requeue：被拒绝的是否重新入队列
-             */
-            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
-        }
+    public void receive5(String msg) throws Exception{
+        Thread.sleep(2000);
+        log.error("work消费者5--" + msg);
     }
 
     @RabbitListener(queuesToDeclare = @Queue(value = "work_ask"))
-    public void receive4(String msg, Message message, Channel channel) throws Exception {
-        try {
-            //确认一条消息
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-            log.error("DirectReceiver消费者4收到消息  : " + msg);
-        } catch (Exception e) {
-            //消费者告诉队列信息消费失败
-            /**
-             * 拒绝确认消息:
-             * channel.basicNack(long deliveryTag, boolean multiple, boolean requeue) ;
-             * deliveryTag:该消息的index
-             * multiple：是否批量true:将一次性拒绝所有小于deliveryTag的消息
-             * requeue：被拒绝的是否重新入队列
-             */
-            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
-        }
+    public void receive6(String msg){
+        log.error("work消费者6--" + msg);
     }
 }

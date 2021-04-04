@@ -39,9 +39,20 @@ public class TestProviderController {
      */
     @GetMapping("/sendWorkAsk")
     public void sendWorkAsk() {
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 10; i++) {
             //队列名称
-            rabbitTemplate.convertAndSend("work", "work queue----" + i);
+            rabbitTemplate.convertAndSend("work_ask", "work queue----" + i);
+        }
+    }
+
+    /**
+     * work模式-拒绝消息
+     */
+    @GetMapping("/sendWorkAsk2")
+    public void sendWorkAsk2() {
+        for (int i = 1; i <= 10; i++) {
+            //队列名称
+            rabbitTemplate.convertAndSend("work_ask2", "work queue----" + i);
         }
     }
 

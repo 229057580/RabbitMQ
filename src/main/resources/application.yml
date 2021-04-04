@@ -7,3 +7,11 @@ spring:
     username: admin
     password: admin
     virtual-host: /test
+    listener:
+      simple:
+        prefetch: 1 #每个消费者每次可以消费一个消息(用于设置能者多劳模式)
+        acknowledge-mode: manual # 开启ACK
+      direct:
+        acknowledge-mode: manual # 开启ACK
+    publisher-confirm-type: correlated  #开启发送确认
+    publisher-returns: true    # 开启发送失败退回
